@@ -43,6 +43,14 @@ class QrCodeController extends Controller
             $mime_type = 'image/jpeg';
         }
 
-        return new Response($qrCode, 200, array('Content-Type' => $mime_type));
+        $response =  new Response($qrCode, 200, array(
+            'Content-Type' => $mime_type,
+            'Cache-Control' => 'max-age=31536000',
+        ));
+
+        $response->setPublic();
+
+        return $response;
+
     }
 }
